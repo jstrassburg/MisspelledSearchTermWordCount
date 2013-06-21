@@ -10,12 +10,12 @@ public class Reduce extends Reducer<Text, Text, Text, Text> {
     public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
         int count = 0;
 
-        for (Text value : values) {
+        for (Text ignored : values) {
             count++;
         }
 
         Text reduceOutput = new Text();
-        reduceOutput.set(String.format("%d", count));
+        reduceOutput.set(String.format("%s\t%d", key, count));
 
         context.write(key, reduceOutput);
     }
