@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact name="MisspelledSearchTermWordCount:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MisspelledSearchTermWordCount_jar</output-path>
+    <root id="root">
+      <element id="archive" name="MisspelledSearchTermWordCount.jar">
+        <element id="module-output" name="MisspelledSearchTermWordCount" />
+      </element>
+      <element id="file-copy" path="$APPLICATION_HOME_DIR$/lib/junit-4.10.jar" />
+      <element id="library" level="project" name="org.apache.hadoop:hadoop-core:0.20.205.0" />
+    </root>
+  </artifact>
+</component>
