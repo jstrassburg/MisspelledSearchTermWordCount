@@ -1,10 +1,9 @@
 package com.directsupply.MisspelledSearchTermWordCount;
 
+import junit.framework.TestCase;
 import org.junit.Assert;
-import org.junit.Test;
 
-public class MapTest {
-    @Test
+public class MapTest extends TestCase {
     public void testMap() throws Exception {
         Assert.assertTrue(true);
     }

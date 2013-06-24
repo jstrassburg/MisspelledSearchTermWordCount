@@ -1,10 +1,9 @@
 package com.directsupply.MisspelledSearchTermWordCount;
 
+import junit.framework.TestCase;
 import org.junit.Assert;
-import org.junit.Test;
 
-public class ReduceTest {
-    @Test
+public class ReduceTest extends TestCase {
     public void testReduce() throws Exception {
         Assert.assertTrue(true);
     }
