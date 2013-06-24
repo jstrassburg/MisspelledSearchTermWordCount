@@ -15,7 +15,7 @@ public class Reduce extends Reducer<Text, Text, Text, Text> {
         }
 
         Text reduceOutput = new Text();
-        reduceOutput.set(String.format("%s\t%d", key, count));
+        reduceOutput.set(String.format("%d", count));
 
         context.write(key, reduceOutput);
     }
