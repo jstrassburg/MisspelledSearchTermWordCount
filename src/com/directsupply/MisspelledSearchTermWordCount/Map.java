@@ -9,13 +9,11 @@ import java.io.IOException;
 public class Map extends Mapper<LongWritable, Text, Text, Text> {
     @Override
     public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-        Text outputValue = new Text();
-        outputValue.set("1");
+        Text outputValue = new Text("1");
 
         String query = QueryMatcher.extractSearchQuery(value.toString());
         if (query != null) {
-            Text outputKey = new Text();
-            outputKey.set(query);
+            Text outputKey = new Text(query);
             context.write(outputKey, outputValue);
         }
     }

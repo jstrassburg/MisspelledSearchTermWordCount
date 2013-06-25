@@ -14,10 +14,8 @@ public class Reduce extends Reducer<Text, Text, Text, Text> {
             count++;
         }
 
-        Text reduceOutput = new Text();
-        reduceOutput.set(String.format("%d", count));
-
-        context.write(key, reduceOutput);
+        Text outputValue = new Text(String.format("%d", count));
+        context.write(key, outputValue);
     }
 }
 
