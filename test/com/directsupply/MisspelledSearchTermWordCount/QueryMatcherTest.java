@@ -25,6 +25,9 @@ public class QueryMatcherTest extends TestCase {
             "facet.field={!ex%3Dsc}SubCategory&f.Category.facet.mincount=1&fq=((Catalogs:27)+OR+(Catalogs:2))&" +
             "fq=(SupplierID:87)&fq={!tag%3Dc}CategoryID:6695&fq=(FrequentlyPurchasedFacilities:1456)} hits=3 " +
             "status=0 QTime=4 ";
+    private final String RealLineFromClassicSearchResults = "38426795\tAR\t534\t2011-04-27T06:37:34\tGET\t200\t" +
+            "/dssi.3.30/Search/Results.aspx\tSrtBy=&Term=CPG-AP202&PID=1&RcPerPg=20&Supp=SSWD&SrtOrd=1&OnOG=" +
+            "True&OffOG=False&POH=0&Cat=&Spec=2";
 
     public void testExtractSearchQuery() throws Exception {
         final String expected = "cheese chdr yel";
@@ -40,5 +43,11 @@ public class QueryMatcherTest extends TestCase {
 
     public void testExtractSearchQueryReturnsNullWhenQueryNotFound() throws Exception {
         Assert.assertNull(QueryMatcher.extractSearchQuery("no query here"));
+    }
+
+    public void testExtractSearchQueryFromClassicShoppingCart() throws Exception {
+        final String expected = "cpg-ap202";
+        String actual = QueryMatcher.extractSearchQuery(RealLineFromClassicSearchResults);
+        Assert.assertEquals(expected, actual);
     }
 }

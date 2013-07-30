@@ -16,7 +16,7 @@ public class MapTest extends TestCase {
 
         Mapper.Context context = mock(Mapper.Context.class);
 
-        Text expectedKey = new Text(query);
+        Text expectedKey = new Text(query.toLowerCase());
         Text expectedValue = new Text("1");
 
         Map map = new Map();
