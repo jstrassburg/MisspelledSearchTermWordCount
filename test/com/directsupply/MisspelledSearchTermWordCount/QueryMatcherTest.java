@@ -28,6 +28,8 @@ public class QueryMatcherTest extends TestCase {
     private final String RealLineFromClassicSearchResults = "38426795\tAR\t534\t2011-04-27T06:37:34\tGET\t200\t" +
             "/dssi.3.30/Search/Results.aspx\tSrtBy=&Term=CPG-AP202&PID=1&RcPerPg=20&Supp=SSWD&SrtOrd=1&OnOG=" +
             "True&OffOG=False&POH=0&Cat=&Spec=2";
+    private final String RealLineFromClassicFood = "47161483\tDS\t380\t2012-08-07T03:16:50\tGET\t200\t" +
+            "/dssi.3.30/Food/Search.aspx\tSearchString=CHEESE%20balls";
 
     public void testExtractSearchQuery() throws Exception {
         final String expected = "cheese chdr yel";
@@ -48,6 +50,12 @@ public class QueryMatcherTest extends TestCase {
     public void testExtractSearchQueryFromClassicShoppingCart() throws Exception {
         final String expected = "cpg-ap202";
         String actual = QueryMatcher.extractSearchQuery(RealLineFromClassicSearchResults);
+        Assert.assertEquals(expected, actual);
+    }
+
+    public void testExtractSearchQueryFromClassicFoodSearch() throws Exception {
+        final String expected = "cheese balls";
+        String actual = QueryMatcher.extractSearchQuery(RealLineFromClassicFood);
         Assert.assertEquals(expected, actual);
     }
 }

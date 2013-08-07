@@ -19,6 +19,11 @@ public class QueryMatcher {
         if (matcher.find()) {
             return extractQuery(line, matcher).toLowerCase();
         }
+        // food records are different
+        matcher = getFoodMatcher(line);
+        if (matcher.find()) {
+            return extractQuery(line, matcher).toLowerCase();
+        }
 
         return null;
     }
@@ -34,6 +39,11 @@ public class QueryMatcher {
 
     private static Matcher getClassicMatcher(String line) {
         Pattern pattern = Pattern.compile("(?<=Term\\=)[^&]*(?=&)");
+        return pattern.matcher(line);
+    }
+
+    private static Matcher getFoodMatcher(String line) {
+        Pattern pattern = Pattern.compile("(?<=SearchString\\=)[^&]*$");
         return pattern.matcher(line);
     }
 }
