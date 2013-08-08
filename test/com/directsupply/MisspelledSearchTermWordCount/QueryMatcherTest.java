@@ -30,6 +30,10 @@ public class QueryMatcherTest extends TestCase {
             "True&OffOG=False&POH=0&Cat=&Spec=2";
     private final String RealLineFromClassicFood = "47161483\tDS\t380\t2012-08-07T03:16:50\tGET\t200\t" +
             "/dssi.3.30/Food/Search.aspx\tSearchString=CHEESE%20balls";
+    private final String BugRealLineWithUnicodeProblem = "52453405\tRH\t94\t2013-05-21T08:43:35\tGET\t" +
+            "200\t/dssi.3.30/Search/Results.aspx\tSrtBy=&" +
+            "Term=%20Hayden%u2122%20Laminate%20Bookcase%2C%203-shelf%2C%20Hilton%20Cherry&PID=1&RcPerPg=20&" +
+            "Supp=&SrtOrd=1&OnOG=true&OffOG=true&POH=0&Cat=&Spec=2";
 
     public void testExtractSearchQuery() throws Exception {
         final String expected = "cheese chdr yel";
@@ -56,6 +60,12 @@ public class QueryMatcherTest extends TestCase {
     public void testExtractSearchQueryFromClassicFoodSearch() throws Exception {
         final String expected = "cheese balls";
         String actual = QueryMatcher.extractSearchQuery(RealLineFromClassicFood);
+        Assert.assertEquals(expected, actual);
+    }
+
+    public void testExtractSearchQueryFromUnicodeBugLine() throws Exception {
+        final String expected = "hayden(tm) laminate bookcase, 3-shelf, hilton cherry";
+        String actual = QueryMatcher.extractSearchQuery(BugRealLineWithUnicodeProblem);
         Assert.assertEquals(expected, actual);
     }
 }

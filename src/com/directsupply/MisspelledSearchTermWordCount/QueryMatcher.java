@@ -10,19 +10,18 @@ public class QueryMatcher {
         Matches textToMatch in q=(textToMatch)
      */
     public static String extractSearchQuery(String line) throws UnsupportedEncodingException {
-        Matcher matcher = getAdvantageMatcher(line);
+        String cleanLine = cleanUrl(line);
+        Matcher matcher = getAdvantageMatcher(cleanLine);
         if (matcher.find()) {
-            return extractQuery(line, matcher).toLowerCase();
+            return extractQuery(cleanLine, matcher).toLowerCase().trim();
         }
-        // classic records can be encoded twice
-        matcher = getClassicMatcher(line);
+        matcher = getClassicMatcher(cleanLine);
         if (matcher.find()) {
-            return extractQuery(line, matcher).toLowerCase();
+            return extractQuery(cleanLine, matcher).toLowerCase().trim();
         }
-        // food records are different
-        matcher = getFoodMatcher(line);
+        matcher = getClassicFoodMatcher(cleanLine);
         if (matcher.find()) {
-            return extractQuery(line, matcher).toLowerCase();
+            return extractQuery(cleanLine, matcher).toLowerCase().trim();
         }
 
         return null;
@@ -42,8 +41,11 @@ public class QueryMatcher {
         return pattern.matcher(line);
     }
 
-    private static Matcher getFoodMatcher(String line) {
+    private static Matcher getClassicFoodMatcher(String line) {
         Pattern pattern = Pattern.compile("(?<=SearchString\\=)[^&]*$");
         return pattern.matcher(line);
+    }
+    private static String cleanUrl(String url) {
+        return url.replace("%u2122", "(TM)");
     }
 }
