@@ -46,6 +46,18 @@ public class QueryMatcher {
         return pattern.matcher(line);
     }
     private static String cleanUrl(String url) {
+        String cleanResult = replaceTrademarkSymbol(url);
+        cleanResult = removeTrailingPercentSymbol(cleanResult);
+        return cleanResult;
+    }
+
+    private static String removeTrailingPercentSymbol(String cleanResult) {
+        if (cleanResult.lastIndexOf("%") == cleanResult.length() - 1)
+            cleanResult = cleanResult.substring(0, cleanResult.length() - 1);
+        return cleanResult;
+    }
+
+    private static String replaceTrademarkSymbol(String url) {
         return url.replace("%u2122", "(TM)");
     }
 }

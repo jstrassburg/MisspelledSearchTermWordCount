@@ -34,6 +34,7 @@ public class QueryMatcherTest extends TestCase {
             "200\t/dssi.3.30/Search/Results.aspx\tSrtBy=&" +
             "Term=%20Hayden%u2122%20Laminate%20Bookcase%2C%203-shelf%2C%20Hilton%20Cherry&PID=1&RcPerPg=20&" +
             "Supp=&SrtOrd=1&OnOG=true&OffOG=true&POH=0&Cat=&Spec=2";
+    private final String BugRealLineTrailingPercentProblem = "SearchString=juice%20aseptic%20100%";
 
     public void testExtractSearchQuery() throws Exception {
         final String expected = "cheese chdr yel";
@@ -66,6 +67,12 @@ public class QueryMatcherTest extends TestCase {
     public void testExtractSearchQueryFromUnicodeBugLine() throws Exception {
         final String expected = "hayden(tm) laminate bookcase, 3-shelf, hilton cherry";
         String actual = QueryMatcher.extractSearchQuery(BugRealLineWithUnicodeProblem);
+        Assert.assertEquals(expected, actual);
+    }
+
+    public void testExtractSearchQueryFromLineWithTrailingSlash() throws Exception {
+        final String expected = "juice aseptic 100";
+        String actual = QueryMatcher.extractSearchQuery(BugRealLineTrailingPercentProblem);
         Assert.assertEquals(expected, actual);
     }
 }
